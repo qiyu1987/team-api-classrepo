@@ -56,12 +56,11 @@ router.delete("/teams/:teamId",authMiddleWare, (req, res, next) => {
     .catch(next);
 });
 
-router.put("/teams/:teamId", (req, res, next) => {
+router.put("/teams/:teamId", authMiddleWare, (req, res, next) => {
   // res.send('oh hi')
   // console.log(req.params, 'WRECKED BY PARAMS??')
   Team.findByPk(req.params.teamId)
     .then(team => {
-      console.log("TEAM FOUND?", team);
       if (team) {
         team.update(req.body).then(team => res.json(team));
       } else {
